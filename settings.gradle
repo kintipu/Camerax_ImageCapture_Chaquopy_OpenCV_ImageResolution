@@ -1,0 +1,2 @@
+include ':app'
+rootProject.name = "Camerax_ImageCapture_Chaquopy_OpenCV_ImageResolution"
