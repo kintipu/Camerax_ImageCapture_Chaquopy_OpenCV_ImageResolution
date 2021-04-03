@@ -50,6 +50,9 @@ public class CameraActivity extends AppCompatActivity {
         cameraProviderFuture = ProcessCameraProvider.getInstance(this);
         textView = findViewById(R.id.length);
         button = findViewById(R.id.button);
+        
+        if(!Python.isStarted())
+              Python.start(new AndroidPlatform(this ));
 
 
         cameraProviderFuture.addListener(new Runnable() {
@@ -88,13 +91,13 @@ public class CameraActivity extends AppCompatActivity {
 
                         Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
                         ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                        bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
+                        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
                         byte[] imageBytes = baos.toByteArray();
-                        String imgString = Base64.encodeToString(imageBytes, Base64.DEFAULT);
+
 //                        String length = String.valueOf((imgString.length()));
 //                        textView.setText(length);
 
-                        PyObject obj = pythonn(imgString);
+                        PyObject obj = pythonn(imageBytes);
 
                         textView.setText(obj.toString());
 
@@ -114,13 +117,12 @@ public class CameraActivity extends AppCompatActivity {
                 preview);
     }
 
-    private PyObject pythonn(String imgString) {
-        if(!Python.isStarted())
-            Python.start(new AndroidPlatform(this ));
+    private PyObject pythonn(byte[] imageBytes) {
+
         Python py = Python.getInstance();
 
         final PyObject pyobj = py.getModule("shape");
-        PyObject obj = pyobj.callAttr("main",imgString);
+        PyObject obj = pyobj.callAttr("main",imageBytes);
         return obj;
     }
 }
