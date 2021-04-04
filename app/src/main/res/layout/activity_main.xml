@@ -16,7 +16,7 @@
             android:id="@+id/container"
             android:textSize="20sp"
             android:layout_gravity="center"
-            android:text="Get String from Image"
+            android:text="Get Resolution from Image"
             android:gravity="center">
         </TextView>
 
