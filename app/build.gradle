@@ -10,7 +10,8 @@ android {
         python{
             pip{
                 install "numpy"
-                install "opencv-python"
+                                //install "opencv-python"
+                install "opencv-python-headless"
                 install "pybase64"
             }
         }
