@@ -60,7 +60,7 @@ public class CameraActivity extends AppCompatActivity {
             public void run() {
                 try {
                     ProcessCameraProvider cameraProvider = cameraProviderFuture.get();
-                    bindImageAnalysis(cameraProvider);
+                    StartCamera(cameraProvider);
                 } catch (ExecutionException | InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -69,7 +69,7 @@ public class CameraActivity extends AppCompatActivity {
     }
 
 
-    private void bindImageAnalysis(@NonNull ProcessCameraProvider cameraProvider) {
+    private void StartCamera(@NonNull ProcessCameraProvider cameraProvider) {
 
         Preview preview = new Preview.Builder().build();
         CameraSelector cameraSelector = new CameraSelector.Builder()
@@ -100,6 +100,7 @@ public class CameraActivity extends AppCompatActivity {
                         PyObject obj = pythonn(imageBytes);
 
                         textView.setText(obj.toString());
+                        image.close();
 
                     }
 
