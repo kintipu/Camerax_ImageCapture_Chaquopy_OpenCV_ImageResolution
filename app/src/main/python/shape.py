@@ -10,6 +10,6 @@ def main(imageBytes):
     if img.shape[0] > img.shape[1]:
         img = cv2.transpose(img)
        
-    img = cv2.resize(img, (1600, 1200))
+    #img = cv2.resize(img, (1600, 1200))
     
     return str(str(img.shape[0]) + "_"  + str(img.shape[1])) 
